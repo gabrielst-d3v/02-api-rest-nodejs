@@ -4,15 +4,13 @@ import { randomUUID } from 'node:crypto'
 import { knex } from '../database'
 import { checkSessionIdExists } from '../middlewares/check-session-id-exists'
 
-// Cookies <-> Formas da API se comunicar com o cliente | manter contexto entre requisições
-
 export async function transactionsRoutes(app: FastifyInstance) {
   app.get(
     '/',
     {
       preHandler: [checkSessionIdExists],
     },
-    async (request, reply) => {
+    async (request) => {
       const { sessionId } = request.cookies
 
       const transactions = await knex('transactions')
